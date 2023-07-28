@@ -53,7 +53,13 @@ const server = http.createServer((req, res) => {
 
     // GET /dogs
     if (req.method === 'GET' && req.url === '/dogs') {
-      // Your code here
+      const jsonFogs = json.stringify(dogs);
+
+      res.statusCode = 200;
+
+      res.setHeader("Content-Type", "application/json");
+
+      // capital JSON is different than lowercase json(using in res.body)
 
       return res.end();
     }
@@ -63,9 +69,14 @@ const server = http.createServer((req, res) => {
       const urlParts = req.url.split('/'); // ['', 'dogs', '1']
       if (urlParts.length === 3) {
         const dogId = urlParts[2];
-        // Your code here
+        const currDog = dogs.find(dog => dog.dogId === parseInt(dogId))
+
+        const json = JSON.stringify(currDog);
+
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json")
       }
-      return res.end();
+      return res.end(jsonDog);
     }
 
     // POST /dogs
