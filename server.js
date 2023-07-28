@@ -82,8 +82,22 @@ const server = http.createServer((req, res) => {
     // POST /dogs
     if (req.method === 'POST' && req.url === '/dogs') {
       const { name, age } = req.body;
-      // Your code here
-      return res.end();
+
+      const newDog = {
+        dogId: getNewDogId(),
+        name,
+        age
+      }
+
+      dogs.push(newDog);
+
+      const jsonDog = JSON.stringify(newDog);
+
+      res.statusCode = 201;
+      res.setHeader("Content-Type", "application/json")
+
+
+      return res.end(jsonDog);
     }
 
     // PUT or PATCH /dogs/:dogId
